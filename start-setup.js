@@ -27,13 +27,6 @@ function createBasicTemplate(appName) {
 }
 
 async function addLoginTemplate(appName) {
-  await fs.unlinkSync(`${__dirname}/${appName}/src/app/page.tsx`, (err) => {
-    if (err) {
-      reject(err);
-    }
-    console.log("1");
-    resolve();
-  });
   await execSync(`cd ${appName} && npx hygen cli login`, (err) => {
     if (err) {
       console.log(err);
