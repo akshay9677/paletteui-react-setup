@@ -1,6 +1,5 @@
 ---
-to: <%= component %>/src/utils/cookie.ts
-overwrite: true
+to: src/utils/cookie.ts
 ---
 
 import Cookie from "universal-cookie";

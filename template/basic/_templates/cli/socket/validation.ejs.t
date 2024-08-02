@@ -1,6 +1,6 @@
 ---
-to: <%= component %>/src/utils/validation.ts
-overwrite: true
+to: src/utils/validation.ts
+force: true
 ---
 export const isEmpty = (value: any) => {
   return (
@@ -15,12 +15,3 @@ export const isEmpty = (value: any) => {
 export const isFunction = (value: any) => {
   return typeof value === "function";
 };
-
-export const isSameDay = (firstDate: Date, secondDate: Date) => {
-  return (
-    firstDate.getFullYear() == secondDate.getFullYear() &&
-    firstDate.getMonth() == secondDate.getMonth() &&
-    firstDate.getDate() == secondDate.getDate()
-  );
-};
-

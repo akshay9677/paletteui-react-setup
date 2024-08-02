@@ -1,6 +1,5 @@
 ---
-to: <%= component %>/src/hooks/useAuth.tsx
-overwrite: true
+to: src/hooks/useAuth.tsx
 ---
 "use client";
 

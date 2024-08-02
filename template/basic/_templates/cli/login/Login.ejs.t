@@ -1,6 +1,5 @@
 ---
-to: <%= component %>/src/app/login/page.tsx
-overwrite: true
+to: src/app/login/page.tsx
 ---
 
 "use client";

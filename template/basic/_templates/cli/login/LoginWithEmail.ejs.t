@@ -1,6 +1,5 @@
 ---
-to: <%= component %>/src/components/auth/LoginWithEmail.tsx
-overwrite: true
+to: src/components/auth/LoginWithEmail.tsx
 ---
 
 

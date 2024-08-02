@@ -1,6 +1,6 @@
 ---
-to: <%= component %>/src/app/page.tsx
-overwrite: true
+to: src/app/page.tsx
+force: true
 ---
 
 import Login from "src/app/login/page";

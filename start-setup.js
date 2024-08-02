@@ -5,41 +5,85 @@ const execSync = require("child_process").execSync;
 
 const prompt = new Select({
   name: "color",
-  message: "Do u need socket boilerplates ?",
+  message: "Would you like to add templates for socket ?",
   choices: ["Yes", "No"],
 });
 
 const loginPrompt = new Select({
   name: "color1",
-  message: "Do u need login templates?",
+  message: "Would you like to add templates for login ?",
   choices: ["Yes", "No"],
 });
+
+function createBasicTemplate(appName) {
+  return new Promise((resolve, reject) => {
+    fs.copy(`${__dirname}/template/basic`, `./${appName}`, async (err) => {
+      if (err) {
+        reject(err);
+      }
+      resolve();
+    });
+  });
+}
+
+async function addLoginTemplate(appName) {
+  await fs.unlinkSync(`${__dirname}/${appName}/src/app/page.tsx`, (err) => {
+    if (err) {
+      reject(err);
+    }
+    console.log("1");
+    resolve();
+  });
+  await execSync(`cd ${appName} && npx hygen cli login`, (err) => {
+    if (err) {
+      console.log(err);
+    }
+  });
+}
+
+async function addSocketTemplate(appName) {
+  await execSync(`cd ${appName} && npx hygen cli socket`, (err) => {
+    if (err) {
+      console.log(err);
+    }
+  });
+}
 
 async function initializeProjectSetup(appName) {
   let isSocketNeeded = false,
     isLoginNeeded = false;
   try {
-    let response = await prompt.run();
-    isSocketNeeded = response === "Yes";
     let loginRes = await loginPrompt.run();
     isLoginNeeded = loginRes === "Yes";
+    let response = await prompt.run();
+    isSocketNeeded = response === "Yes";
 
-    console.log(isLoginNeeded, isSocketNeeded);
+    await createBasicTemplate(appName);
 
-    await fs.copy(`${__dirname}/template/basic`, `./${appName}`, (err) => {
-      if (err) {
-        console.log(err);
-        process.exit(1);
-      } else {
-        if (isLoginNeeded) {
-          fs.unlinkSync(`${__dirname}/${appName}/src/app/page.tsx`);
-          execSync(`npx hygen cli login --component=${appName}`, (e) => {
-            console.log(e);
-            process.exit(1);
-          });
+    if (isLoginNeeded) await addLoginTemplate(appName);
+
+    if (isSocketNeeded) await addSocketTemplate(appName);
+
+    await new Promise((resolve, reject) => {
+      fs.rm(
+        `${__dirname}/${appName}/_templates`,
+        {
+          recursive: true,
+          force: true,
+        },
+        (err) => {
+          if (err) {
+            reject(err);
+          }
+
+          resolve();
         }
-      }
+      );
     });
+
+    console.log(
+      `Added templates! cd into ${appName} and do "npm i" do install libraries`
+    );
   } catch (e) {
     console.log(e);
   }
@@ -48,7 +92,7 @@ async function initializeProjectSetup(appName) {
 function start() {
   program
     .version("0.0.1")
-    .command("create <appName>")
+    .argument("<appName>")
     .action((appName) => {
       if (appName.toLowerCase() == appName && appName.toUpperCase() != appName)
         initializeProjectSetup(appName);
