@@ -1,6 +1,6 @@
 {
   "name": "@paletteui/react-setup",
-  "version": "1.1.0",
+  "version": "1.2.0",
   "description": "This is a boiler plate generator repo.",
   "main": "index.js",
   "scripts": {
@@ -12,9 +12,10 @@
   "author": "Akshay K",
   "license": "ISC",
   "dependencies": {
+    "chalk": "^4.1.0",
     "commander": "^12.1.0",
     "enquirer": "^2.4.1",
-    "fs-extra": "^11.2.0"
-  },
-  "devDependencies": {}
+    "fs-extra": "^11.2.0",
+    "ora": "5.4.1"
+  }
 }
