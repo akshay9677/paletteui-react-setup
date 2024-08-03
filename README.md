@@ -1,4 +1,4 @@
-# @paletteui/react-setup
+# @palette-js/react-setup
 
 This is a opinionated boiler plate generator repository. This cli tool generates a next js app with app router and a tailwind css setup, above which you can add the following templates,
 
@@ -8,7 +8,7 @@ This is a opinionated boiler plate generator repository. This cli tool generates
 ## Install
 
 ```sh
-npx @paletteui/react-setup <your-app-name>
+npx @palette-js/react-setup <your-app-name>
 ```
 
 ## Usage
